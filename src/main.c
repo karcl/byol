@@ -1,10 +1,14 @@
 #include <stdio.h>
+#include <stdlib.h>
+
+#include <editline/readline.h>
+#include <editline/history.h>
 
 #define VERSION "0.0.0.0.1"
 
-/* User input buffer */
-#define BUFFER_SIZE 2048
-static char input[BUFFER_SIZE];
+// /* User input buffer */
+// #define BUFFER_SIZE 2048
+// static char input[BUFFER_SIZE];
 
 int main(int argc, char* argv[])
 {
@@ -12,15 +16,17 @@ int main(int argc, char* argv[])
   fprintf(stdout, "Press Ctrl+d to Exit\n");
 
   while (1) {
-    fprintf(stdout, "byol> "); /* Show prompt */
+    char* input = readline("byol> "); /* Show prompt and get user input */
 
-    fgets(input, BUFFER_SIZE, stdin); /* Get user input */
+    add_history(input); /* Remember input in history */
 
-    fprintf(stdout, "You've entered: %s", input); /* Echo input back */
+    fprintf(stdout, "You've entered: %s\n", input); /* Echo input back */
 
-    if (feof(stdin)) { /* Terminate loop on EOF */
+    if (input == NULL) { /* Terminate loop on EOF */
       break;
     }
+
+    free(input); /* Free retrieved input */
   }
 
   return 0;

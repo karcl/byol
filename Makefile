@@ -12,7 +12,7 @@ OBJ_DIR = obj
 BUILD_DIR = build
 
 # Compiler flags and linked libs
-LIBS = -lm
+LIBS = -lm -ledit
 CFLAGS = -Wall -std=c99
 
 # Object files
